@@ -3,3 +3,17 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  #app
+    #coal
+      h2#coal_label Coal
+    #oil
+      h2#oil_label Oil
+    #trash
+      h2#trash_label Trash
+    #uranium
+      h2#uranium_label Uranium
+    
+    h2#total $0
+
+  script(src="/javascripts/main.js")

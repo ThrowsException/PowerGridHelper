@@ -6,3 +6,35 @@ body {
 a {
   color: #00B7FF;
 }
+
+.coal_display {
+  background-color: brown;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin: 4px;
+}
+
+.oil_display {
+  background: black;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin: 4px;
+}
+
+.trash_display {
+  background: yellow;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin: 4px;
+}
+
+.uranium_display {
+  background: red;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin: 4px;
+}
