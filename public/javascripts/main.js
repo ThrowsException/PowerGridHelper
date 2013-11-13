@@ -4,119 +4,29 @@ var coal = [];
 var oil = [];
 var trash = [];
 var uranium = [];
-var price = 0;
 
-function initializeResources() {
-
-  coal = [
-    { price: 1, available: true, onBoard: true }, { price: 1, available: true, onBoard: true }, { price: 1, available: true, onBoard: true },
-    { price: 2, available: true, onBoard: true }, { price: 2, available: true, onBoard: true }, { price: 2, available: true, onBoard: true },
-    { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true },
-    { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true },
-    { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true },
-    { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true },
-    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
-    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
-  ];
-  
-  oil = [
-    { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false },
-    { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false },
-    { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true },
-    { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true },
-    { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true },
-    { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true },
-    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
-    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
-  ];
-  
-  trash = [
-    { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false },
-    { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false },
-    { price: 3, available: false, onBoard: false }, { price: 3, available: false, onBoard: false }, { price: 3, available: false, onBoard: false },
-    { price: 4, available: false, onBoard: false }, { price: 4, available: false, onBoard: false }, { price: 4, available: false, onBoard: false },
-    { price: 5, available: false, onBoard: false }, { price: 5, available: false, onBoard: false }, { price: 5, available: false, onBoard: false },
-    { price: 6, available: false, onBoard: false }, { price: 6, available: false, onBoard: false }, { price: 6, available: false, onBoard: false },
-    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
-    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
-  ];
-
-  uranium = [
-    { price: 1, available: false, onBoard: false },
-    { price: 2, available: false, onBoard: false },
-    { price: 3, available: false, onBoard: false },
-    { price: 4, available: false, onBoard: false },
-    { price: 5, available: false, onBoard: false },
-    { price: 6, available: false, onBoard: false },
-    { price: 7, available: false, onBoard: false },
-    { price: 8, available: false, onBoard: false },
-    { price: 10, available: false, onBoard: false },
-    { price: 12, available: false, onBoard: false },
-  {
-    price: 14,
-    available: true,
-    onBoard: true
-  }, {
-    price: 16,
-    available: true,
-    onBoard: true
-  },
-  ];
-}
-
-function setupResource(resourceName) {
+function setupResource(resourceName, resourceArray, totalResources, upTo) {
   var price = 1;
-  switch(resourceName) {
-    case 'coal':
-      for (var i = 1; i <= 24; i++) {
-        coal.push({ price: price, available: true, onBoard: true });
-        if(i >= 3 && (i%3 === 0)) {
-          price++;
-        }
-      }
-      break;
-    case 'oil':
-      for (var i = 1; i <= 24; i++) {
-        if(i <= 6) {
-          oil.push({ price: price, available: false, onBoard: false });
-        }
-        else {
-          oil.push({ price: price, available: true, onBoard: true });
-        }
-        if(i >= 3 && (i%3 === 0)) {
-          price++;
-        }
-      }
-      break;
-    case 'trash':
-      for (var i = 1; i <= 24; i++) {
-        if(i <= 18) {
-          trash.push({ price: price, available: false, onBoard: false });
-        }
-        else {
-          trash.push({ price: price, available: true, onBoard: true });
-        }
-        if(i >= 3 && (i%3 === 0)) {
-          price++;
-        }
-      }
-      break;
-    case 'uranium':
-      for (var i = 1; i <= 12; i++) {
-        if(i <= 10) {
-          uranium.push({ price: price, available: false, onBoard: false });
-        }
-        else {
-          uranium.push({ price: price, available: true, onBoard: true });
-        }
-        if(i >= 8) {
+  for (var i = 1; i <= totalResources; i++) {
+    if(i <= upTo) {
+      resourceArray.push({ price: price, available: false, onBoard: false });
+    }
+    else {
+      resourceArray.push({ price: price, available: true, onBoard: true });
+    }
+    if(resourceName === 'uranium') {
+      if(i >= 8) {
           price += 2;
         }
         else {
           price++;
         }
+    }
+    else {
+      if(i >= 3 && (i%3 === 0)) {
+        price++;
       }
-      break;
+    }
   }
 }
 
@@ -180,10 +90,10 @@ function resourceClicked(resourceType, resourceArray, available) {
 
 (function() {
   
-  setupResource('coal');
-  setupResource('oil');
-  setupResource('trash');
-  setupResource('uranium');
+  setupResource('coal', coal, 24, 0);
+  setupResource('oil', oil, 24, 6);
+  setupResource('trash', trash, 24, 18);
+  setupResource('uranium', uranium, 12, 10);
 
   createLayout('coal', coal, 'coal_label');
   createLayout('oil', oil, 'oil_label');
