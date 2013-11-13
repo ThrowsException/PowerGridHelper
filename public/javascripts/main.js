@@ -76,7 +76,7 @@ function createLayout(resourceType, resourceArray, element) {
   var i = resourceArray.length - 1;
   
   for(; i >= 0; i--) {
-    var d = document.createElement('span');
+    var d = document.createElement('div');
     d.className = resourceType + '_display';
     d.id = resourceType + '_' + i;
     
@@ -102,7 +102,7 @@ function resourceClicked(resourceType, resourceArray, available) {
         done = true;
         resource.available = !available;
         block = document.getElementById(resourceType + '_' + i);
-        block.innerHTML = 'X';
+        block.innerHTML = '<span>X</span>';
         price += resource.price;
       }
     }

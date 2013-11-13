@@ -8,6 +8,8 @@ a {
 }
 
 .coal_display {
+  color: white;
+  vertical-align: top;
   background-color: brown;
   display: inline-block;
   height: 40px;
@@ -16,6 +18,8 @@ a {
 }
 
 .oil_display {
+  color: white;
+  vertical-align: top;
   background: black;
   display: inline-block;
   height: 40px;
@@ -24,6 +28,8 @@ a {
 }
 
 .trash_display {
+  color: white;
+  vertical-align: top;
   background: yellow;
   display: inline-block;
   height: 40px;
@@ -32,6 +38,8 @@ a {
 }
 
 .uranium_display {
+  color: white;
+  vertical-align: top;
   background: red;
   display: inline-block;
   height: 40px;
