@@ -9,55 +9,57 @@ var price = 0;
 function initializeResources() {
 
   coal = [
-    { price: 1, available: true }, { price: 1, available: true }, { price: 1, available: true },
-    { price: 2, available: true }, { price: 2, available: true }, { price: 2, available: true },
-    { price: 3, available: true }, { price: 3, available: true }, { price: 3, available: true },
-    { price: 4, available: true }, { price: 4, available: true }, { price: 4, available: true },
-    { price: 5, available: true }, { price: 5, available: true }, { price: 5, available: true },
-    { price: 6, available: true }, { price: 6, available: true }, { price: 6, available: true },
-    { price: 7, available: true }, { price: 7, available: true }, { price: 7, available: true },
-    { price: 8, available: true }, { price: 8, available: true }, { price: 8, available: true }
+    { price: 1, available: true, onBoard: true }, { price: 1, available: true, onBoard: true }, { price: 1, available: true, onBoard: true },
+    { price: 2, available: true, onBoard: true }, { price: 2, available: true, onBoard: true }, { price: 2, available: true, onBoard: true },
+    { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true },
+    { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true },
+    { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true },
+    { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true },
+    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
+    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
   ];
   
   oil = [
-    { price: 1, available: false }, { price: 1, available: false }, { price: 1, available: false },
-    { price: 2, available: false }, { price: 2, available: false }, { price: 2, available: false },
-    { price: 3, available: true }, { price: 3, available: true }, { price: 3, available: true },
-    { price: 4, available: true }, { price: 4, available: true }, { price: 4, available: true },
-    { price: 5, available: true }, { price: 5, available: true }, { price: 5, available: true },
-    { price: 6, available: true }, { price: 6, available: true }, { price: 6, available: true },
-    { price: 7, available: true }, { price: 7, available: true }, { price: 7, available: true },
-    { price: 8, available: true }, { price: 8, available: true }, { price: 8, available: true }
+    { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false },
+    { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false },
+    { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true }, { price: 3, available: true, onBoard: true },
+    { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true }, { price: 4, available: true, onBoard: true },
+    { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true }, { price: 5, available: true, onBoard: true },
+    { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true }, { price: 6, available: true, onBoard: true },
+    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
+    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
   ];
   
   trash = [
-    { price: 1, available: false }, { price: 1, available: false }, { price: 1, available: false },
-    { price: 2, available: false }, { price: 2, available: false }, { price: 2, available: false },
-    { price: 3, available: false }, { price: 3, available: false }, { price: 3, available: false },
-    { price: 4, available: false }, { price: 4, available: false }, { price: 4, available: false },
-    { price: 5, available: false }, { price: 5, available: false }, { price: 5, available: false },
-    { price: 6, available: false }, { price: 6, available: false }, { price: 6, available: false },
-    { price: 7, available: true }, { price: 7, available: true }, { price: 7, available: true },
-    { price: 8, available: true }, { price: 8, available: true }, { price: 8, available: true }
+    { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false }, { price: 1, available: false, onBoard: false },
+    { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false }, { price: 2, available: false, onBoard: false },
+    { price: 3, available: false, onBoard: false }, { price: 3, available: false, onBoard: false }, { price: 3, available: false, onBoard: false },
+    { price: 4, available: false, onBoard: false }, { price: 4, available: false, onBoard: false }, { price: 4, available: false, onBoard: false },
+    { price: 5, available: false, onBoard: false }, { price: 5, available: false, onBoard: false }, { price: 5, available: false, onBoard: false },
+    { price: 6, available: false, onBoard: false }, { price: 6, available: false, onBoard: false }, { price: 6, available: false, onBoard: false },
+    { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true }, { price: 7, available: true, onBoard: true },
+    { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }, { price: 8, available: true, onBoard: true }
   ];
 
   uranium = [
-    { price: 1, available: false },
-    { price: 2, available: false },
-    { price: 3, available: false },
-    { price: 4, available: false },
-    { price: 5, available: false },
-    { price: 6, available: false },
-    { price: 7, available: false },
-    { price: 8, available: false },
-    { price: 10, available: false },
-    { price: 12, available: false },
+    { price: 1, available: false, onBoard: false },
+    { price: 2, available: false, onBoard: false },
+    { price: 3, available: false, onBoard: false },
+    { price: 4, available: false, onBoard: false },
+    { price: 5, available: false, onBoard: false },
+    { price: 6, available: false, onBoard: false },
+    { price: 7, available: false, onBoard: false },
+    { price: 8, available: false, onBoard: false },
+    { price: 10, available: false, onBoard: false },
+    { price: 12, available: false, onBoard: false },
   {
     price: 14,
-    available: true
+    available: true, 
+    onBoard: true
   }, {
     price: 16,
-    available: true
+    available: true,
+    onBoard: true
   },
   ];
 
@@ -96,29 +98,27 @@ function resourceClicked(resourceType, resourceArray, available) {
 
     for(i = 0; i < max && !done; i++) {
       resource = resourceArray[i];
-      if(resource.available === available) {
+      if(resource.available === available && resource.onBoard) {
         done = true;
         resource.available = !available;
         block = document.getElementById(resourceType + '_' + i);
         block.innerHTML = 'X';
+        price += resource.price;
       }
     }
-
-    price += resource.price;
   }
 
   if(!available) {
     for(i = resourceArray.length - 1; i >= 0 && !done; i--) {
       resource = resourceArray[i];
-      if(resource.available === available) {
+      if(resource.available === available && resource.onBoard) {
         done = true;
         resource.available = !available;
         block = document.getElementById(resourceType + '_' + i);
         block.innerHTML = '';
+        price -= resource.price;
       }
     }
-
-    price -= resource.price;
   }
   total.innerHTML = '$' + price;
 }
