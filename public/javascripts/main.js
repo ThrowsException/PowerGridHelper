@@ -4,6 +4,7 @@ var coal = [];
 var oil = [];
 var trash = [];
 var uranium = [];
+var price = 0;
 var phase = 1;
 
 function setupResource(resourceName, resourceArray, totalResources, upTo) {
@@ -59,6 +60,7 @@ function resourceClicked(resourceType, resourceArray, available) {
   var done = false;
   var resource, block, i = 0, max = 0;
   var total = document.getElementById('total');
+
   if(available) {
     max = resourceArray.length;
 
@@ -100,4 +102,7 @@ function resourceClicked(resourceType, resourceArray, available) {
   createLayout('oil', oil, 'oil_label');
   createLayout('trash', trash, 'trash_label');
   createLayout('uranium', uranium, 'uranium_label');
+
+
+
 }());
