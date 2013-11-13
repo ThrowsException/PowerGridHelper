@@ -4,6 +4,7 @@ var coal = [];
 var oil = [];
 var trash = [];
 var uranium = [];
+var phase = 1;
 
 function setupResource(resourceName, resourceArray, totalResources, upTo) {
   var price = 1;
