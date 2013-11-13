@@ -54,7 +54,7 @@ function initializeResources() {
     { price: 12, available: false, onBoard: false },
   {
     price: 14,
-    available: true, 
+    available: true,
     onBoard: true
   }, {
     price: 16,
@@ -62,7 +62,62 @@ function initializeResources() {
     onBoard: true
   },
   ];
+}
 
+function setupResource(resourceName) {
+  var price = 1;
+  switch(resourceName) {
+    case 'coal':
+      for (var i = 1; i <= 24; i++) {
+        coal.push({ price: price, available: true, onBoard: true });
+        if(i >= 3 && (i%3 === 0)) {
+          price++;
+        }
+      }
+      break;
+    case 'oil':
+      for (var i = 1; i <= 24; i++) {
+        if(i <= 6) {
+          oil.push({ price: price, available: false, onBoard: false });
+        }
+        else {
+          oil.push({ price: price, available: true, onBoard: true });
+        }
+        if(i >= 3 && (i%3 === 0)) {
+          price++;
+        }
+      }
+      break;
+    case 'trash':
+      for (var i = 1; i <= 24; i++) {
+        if(i <= 18) {
+          trash.push({ price: price, available: false, onBoard: false });
+        }
+        else {
+          trash.push({ price: price, available: true, onBoard: true });
+        }
+        if(i >= 3 && (i%3 === 0)) {
+          price++;
+        }
+      }
+      break;
+    case 'uranium':
+      for (var i = 1; i <= 12; i++) {
+        if(i <= 10) {
+          uranium.push({ price: price, available: false, onBoard: false });
+        }
+        else {
+          uranium.push({ price: price, available: true, onBoard: true });
+        }
+        if(i >= 8) {
+          price += 2;
+        }
+        else {
+          price++;
+        }
+      }
+      break;
+  }
 }
 
 function createEventHandler(resourceType, resourceArray, i) {
@@ -125,7 +180,10 @@ function resourceClicked(resourceType, resourceArray, available) {
 
 (function() {
   
-  initializeResources();
+  setupResource('coal');
+  setupResource('oil');
+  setupResource('trash');
+  setupResource('uranium');
 
   createLayout('coal', coal, 'coal_label');
   createLayout('oil', oil, 'oil_label');
