@@ -2,13 +2,12 @@
 
 (function() {
   
-
   var replenishmentRates = [
-    { phase1: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase2: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase3: { coal: 0, oil: 0, trash: 0, uranium: 0 }, },
-    { phase1: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase2: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase3: { coal: 0, oil: 0, trash: 0, uranium: 0 }, },
-    { phase1: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase2: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase3: { coal: 0, oil: 0, trash: 0, uranium: 0 }, },
-    { phase1: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase2: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase3: { coal: 0, oil: 0, trash: 0, uranium: 0 }, },
-    { phase1: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase2: { coal: 0, oil: 0, trash: 0, uranium: 0 }, phase3: { coal: 0, oil: 0, trash: 0, uranium: 0 }, }
+    [ { coal: 3, oil: 2, trash: 1, uranium: 1 }, { coal: 4, oil: 2, trash: 2, uranium: 1 }, { coal: 3, oil: 2, trash: 2, uranium: 1 } ],
+    [ { coal: 4, oil: 2, trash: 1, uranium: 1 }, { coal: 5, oil: 3, trash: 2, uranium: 1 }, { coal: 3, oil: 4, trash: 3, uranium: 1 } ],
+    [ { coal: 5, oil: 3, trash: 2, uranium: 1 }, { coal: 6, oil: 4, trash: 3, uranium: 2 }, { coal: 4, oil: 5, trash: 4, uranium: 2 } ],
+    [ { coal: 5, oil: 4, trash: 3, uranium: 2 }, { coal: 7, oil: 5, trash: 3, uranium: 3 }, { coal: 5, oil: 6, trash: 5, uranium: 2 } ],
+    [ { coal: 7, oil: 5, trash: 3, uranium: 2 }, { coal: 9, oil: 6, trash: 5, uranium: 3 }, { coal: 6, oil: 7, trash: 6, uranium: 3 } ]
   ];
 
   var coal = [];
@@ -133,7 +132,32 @@
 
     var total = document.getElementById('total');
     price = 0;
-    total.innerHTML = '$' + 0;   
+    total.innerHTML = '$' + 0;
+  }
+
+  function replenishResource(resourceType, resourceArray, step) {
+    var players = document.getElementById('number_of_players').value;
+    var rate = replenishmentRates[players - 2][step - 1][resourceType];
+    
+    var i = resourceArray.length - 1;
+    var replenished = 0;
+    for(; i >= 0 && replenished < rate; i--) {
+      var resource = resourceArray[i];
+      if(!resource.available) {
+        resource.available = true;
+        resource.onBoard = true;
+        replenished++;
+      }
+    }
+  }
+
+  function replenishResources() {
+    var currentStep = step.getStep();
+
+    replenishResource('coal', coal, currentStep);
+    replenishResource('oil', oil, currentStep);
+    replenishResource('trash', trash, currentStep);
+    replenishResource('uranium', uranium, currentStep);
   }
 
   setupResource('coal', coal, 24, 0);
@@ -150,9 +174,12 @@
   var step2 = document.getElementById('step2');
   var step3 = document.getElementById('step3');
   var buy = document.getElementById('buy');
+  var replenish = document.getElementById('replenish');
 
   step1.addEventListener('click', function() { step.setStep(1); }, false);
   step2.addEventListener('click', function() { step.setStep(2); }, false);
   step3.addEventListener('click', function() { step.setStep(3); }, false);
   buy.addEventListener('click', function() { buyResources(); }, false);
+  replenish.addEventListener('click', replenishResources, false);
+
 }());
