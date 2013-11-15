@@ -232,9 +232,24 @@
   var buy = document.getElementById('buy');
   var replenish = document.getElementById('replenish');
 
-  step1.addEventListener('click', function() { step.setStep(1); }, false);
-  step2.addEventListener('click', function() { step.setStep(2); }, false);
-  step3.addEventListener('click', function() { step.setStep(3); }, false);
-  buy.addEventListener('click', function() { buyResources(); }, false); replenish.addEventListener('click', resources.replenishResources(), false);
+  step1.addEventListener('click', function() {
+    step.setStep(1);
+  }, false);
+  
+  step2.addEventListener('click', function() {
+    step.setStep(2);
+  }, false);
+  
+  step3.addEventListener('click', function() {
+    step.setStep(3);
+  }, false);
+  
+  buy.addEventListener('click', function() {
+    buyResources();
+  }, false);
+  
+  replenish.addEventListener('click', function () {
+     resources.replenish.apply(resources); 
+   }, false);
 
 }());
