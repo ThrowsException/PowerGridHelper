@@ -14,7 +14,6 @@
   var oil = [];
   var trash = [];
   var uranium = [];
-  var price = 0;
 
   var step = {
     currentStep: 1,
@@ -25,8 +24,34 @@
 
     setStep: function(step) {
       this.currentStep = step;
-      var element = document.getElementById('step');
-      element.innerHTML = step;
+    }
+  };
+
+  var total = {
+    total: 0,
+    UITotal: document.getElementById('total'),
+
+    getTotal: function() {
+      return this.total;
+    },
+
+    updateTotal: function() {
+      this.UITotal.innerHTML = '$' + this.total;
+    },
+
+    increaseTotal: function(val) {
+      this.total += val;
+      this.updateTotal();
+    },
+
+    decreaseTotal: function(val) {
+      this.total -= val;
+      this.updateTotal();
+    },
+
+    setTotal: function(val) {
+      this.total = val;
+      this.updateTotal();
     }
   };
 
@@ -55,63 +80,69 @@
     }
   }
 
-  function createEventHandler(resourceType, resourceArray, i) {
-    var d = document.getElementById(resourceType + '_' + i);
-    d.addEventListener('click', function() { resourceClicked(resourceType, resourceArray, resourceArray[i].available); }, false );
+  function createEventHandler(resourceType, resourceArray, el, index) {
+    el.addEventListener('click', function() { resourceClicked(resourceType, resourceArray, resourceArray[index].available); }, false );
   }
 
   function createLayout(resourceType, resourceArray, element) {
     var el = document.getElementById(element);
     var parent = el.parentNode;
-    var i = resourceArray.length - 1;
     
-    for(; i >= 0; i--) {
-      var d = document.createElement('div');
-      d.className = resourceType + '_display';
-      d.id = resourceType + '_' + i;
+    for(var i = resourceArray.length - 1; i >= 0; i--) {
+      var resource_el = document.createElement('div');
+      resource_el.className = resourceType + '_display';
+      resource_el.id = resourceType + '_' + i;
       
-      parent.insertBefore(d, el.nextSibling);
-    }
+      parent.insertBefore(resource_el, el.nextSibling);
 
-    i = resourceArray.length - 1;
-    for(; i >= 0; i--) {
-      createEventHandler(resourceType, resourceArray, i);
+      createEventHandler(resourceType, resourceArray, resource_el, i);
+    }
+  }
+
+  function setResourceUI(id, content) {
+    var block = document.getElementById(id);
+    block.innerHTML = '<span>' + content + '</span>';
+  }
+  
+  function takeAwayResource(resourceType, resourceArray, available) {
+    var done = false;
+    var max = resourceArray.length;
+    var resource;
+
+    for(var i = 0; i < max && !done; i++) {
+      resource = resourceArray[i];
+      if(resource.available === available && resource.onBoard) {
+        done = true;
+        resource.available = !available;
+        setResourceUI(resourceType + '_' + i, 'X');
+        total.increaseTotal(resource.price);
+      }
+    }
+  }
+
+  function putBackResource(resourceType, resourceArray, available) {
+    var done = false;
+    var resource;
+
+    for(var i = resourceArray.length - 1; i >= 0 && !done; i--) {
+      resource = resourceArray[i];
+      if(resource.available === available && resource.onBoard) {
+        done = true;
+        resource.available = !available;
+        setResourceUI(resourceType + '_' + i, '');
+        total.decreaseTotal(resource.price);
+      }
     }
   }
 
   function resourceClicked(resourceType, resourceArray, available) {
-    var done = false;
-    var resource, block, i = 0, max = 0;
-    var total = document.getElementById('total');
-
     if(available) {
-      max = resourceArray.length;
-
-      for(i = 0; i < max && !done; i++) {
-        resource = resourceArray[i];
-        if(resource.available === available && resource.onBoard) {
-          done = true;
-          resource.available = !available;
-          block = document.getElementById(resourceType + '_' + i);
-          block.innerHTML = '<span>X</span>';
-          price += resource.price;
-        }
-      }
+      takeAwayResource(resourceType, resourceArray, available);
     }
 
     if(!available) {
-      for(i = resourceArray.length - 1; i >= 0 && !done; i--) {
-        resource = resourceArray[i];
-        if(resource.available === available && resource.onBoard) {
-          done = true;
-          resource.available = !available;
-          block = document.getElementById(resourceType + '_' + i);
-          block.innerHTML = '';
-          price -= resource.price;
-        }
-      }
+      putBackResource(resourceType, resourceArray, available);
     }
-    total.innerHTML = '$' + price;
   }
 
   function removeResources(resourceArray) {
@@ -130,9 +161,7 @@
     removeResources(trash);
     removeResources(uranium);
 
-    var total = document.getElementById('total');
-    price = 0;
-    total.innerHTML = '$' + 0;
+    total.setTotal(0);
   }
 
   function replenishResource(resourceType, resourceArray, step) {
@@ -160,6 +189,8 @@
     replenishResource('uranium', uranium, currentStep);
   }
 
+  var element = document.getElementById('step');
+
   setupResource('coal', coal, 24, 0);
   setupResource('oil', oil, 24, 6);
   setupResource('trash', trash, 24, 18);
@@ -176,10 +207,9 @@
   var buy = document.getElementById('buy');
   var replenish = document.getElementById('replenish');
 
-  step1.addEventListener('click', function() { step.setStep(1); }, false);
-  step2.addEventListener('click', function() { step.setStep(2); }, false);
-  step3.addEventListener('click', function() { step.setStep(3); }, false);
-  buy.addEventListener('click', function() { buyResources(); }, false);
-  replenish.addEventListener('click', replenishResources, false);
+  step1.addEventListener('click', function() { step.setStep(1); element.innerHTML = step.getStep(); }, false);
+  step2.addEventListener('click', function() { step.setStep(2); element.innerHTML = step.getStep(); }, false);
+  step3.addEventListener('click', function() { step.setStep(3); element.innerHTML = step.getStep(); }, false);
+  buy.addEventListener('click', function() { buyResources(); }, false); replenish.addEventListener('click', replenishResources, false);
 
 }());
