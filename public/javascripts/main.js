@@ -85,6 +85,7 @@
         if(!resource.available) {
           resource.available = true;
           resource.onBoard = true;
+          setResourceUI(document.getElementById(resourceType + '_' + i), true);
           replenished++;
         }
       }
@@ -151,12 +152,21 @@
       parent.insertBefore(resource_el, el.nextSibling);
 
       createEventHandler(resourceType, resourceArray, resource_el, i);
+
+      setResourceUI(resource_el, resourceArray[i].available);
     }
   }
 
-  function setResourceUI(id, content) {
-    var block = document.getElementById(id);
-    block.innerHTML = '<span>' + content + '</span>';
+  function setResourceUI(el, available) {
+    var content = available ? '' : 'X';
+
+    if(typeof el === 'object') {
+      el.innerHTML = '<span>' + content + '</span>';
+    }
+    else {
+      var block = document.getElementById(el);
+      block.innerHTML = '<span>' + content + '</span>';
+    }
   }
 
   function takeAwayResource(resourceType, resourceArray, available) {
@@ -169,7 +179,7 @@
       if(resource.available === available && resource.onBoard) {
         done = true;
         resource.available = !available;
-        setResourceUI(resourceType + '_' + i, 'X');
+        setResourceUI(resourceType + '_' + i, false);
         total.increaseTotal(resource.price);
       }
     }
@@ -184,7 +194,7 @@
       if(resource.available === available && resource.onBoard) {
         done = true;
         resource.available = !available;
-        setResourceUI(resourceType + '_' + i, '');
+        setResourceUI(resourceType + '_' + i, true);
         total.decreaseTotal(resource.price);
       }
     }
@@ -249,7 +259,7 @@
   }, false);
   
   replenish.addEventListener('click', function () {
-     resources.replenish.apply(resources); 
+     resources.replenish.apply(resources);
    }, false);
 
 }());
